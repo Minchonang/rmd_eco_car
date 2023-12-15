@@ -1,27 +1,3 @@
-# from sqlalchemy import create_engine
-
-# st.sidebar.header('User Input Parameters')
-
-# date = pd.datetime.today()
-
-# server = st.sidebar.text_input('Server Name', '')
-# data_mart = st.sidebar.text_input('Data Mart', '')
-# password = st.sidebar.text_input('Password', '')
-# schema = st.sidebar.text_input('Schema', '')
-# st.sidebar.info('In our use case table can be: ')
-# table_name = st.sidebar.text_input('Table Name', '')
-# table = 'SELECT * FROM ' + table_name
-# con = pymysql.connect(server, data_mart, password, schema)
-# data = pd.read_sql(table, con)
-# df = pd.DataFrame(data)
-# df.to_csv(f'local\{table_name}.csv')
-# data = pd.read_csv(f'local\{table_name}.csv')
-# df = pd.DataFrame(data)
-
-# st.header('Streamlit DB connector')
-# st.subheader(f'Data to be analyzed from {table_name} table in server {server}')
-# st.markdown(df.columns)
-# st.dataframe(df)
 import pandas as pd
 import pymysql
 import streamlit as st
@@ -65,14 +41,14 @@ class teamTableSearchClass:
             self.exit()
             return df
         else:
-            print('조회될건이 없습니다.')
+            print('조회된 차량이 없습니다.')
             self.exit()
 
     # 종료
     def exit(self):
         # 접속종료
         try:
-            print('접속해제')
+            print('접속 해제')
             self.cur.close()
             self.conn.close()
         except:
@@ -115,9 +91,9 @@ print(company)
 power = ori_df['power'].str.strip().unique()
 print(power)
 
-st.subheader("당신이 찾는 친환경 차를 찾아드립니다!")
+st.subheader("당신에게 맞는 친환경 자동차를 찾아드립니다!")
 
-po_input = st.selectbox('원하는 연료을 선택하세요', power, index=None)
+po_input = st.selectbox('원하는 연료를 선택하세요', power, index=None)
 
 if po_input == '수소':
     searchtable="hydro_subside"
@@ -144,7 +120,7 @@ else:
 
     ca_ty_input = st.selectbox('원하는 차종을 선택하세요', car_type, index=None)
 
-    car_input = st.selectbox('원하는 회사를 선택하세요', company, index=None)
+    car_input = st.selectbox('원하는 브랜드를 선택하세요', company, index=None)
 
     df_car=ts.select(f'''
     SELECT *
