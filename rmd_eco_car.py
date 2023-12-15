@@ -1,71 +1,6 @@
-#%%
-# import pandas as pd
-# from sqlalchemy import create_engine
-# import pymysql
-# import streamlit as st
-# import matplotlib.pyplot as plt
-
-# class teamTableSearchClass:
-#     def __init__(self):
-#         pass
-
-#     # 시작
-#     def start(self):
-#         try:
-#             self.conn = pymysql.connect(host="54.202.87.166",
-#                                         user="team3",
-#                                         password="dbdbdb",
-#                                         db="teamproject3",
-#                                         charset="utf8",
-#                                         autocommit=True,
-#                                         cursorclass=pymysql.cursors.DictCursor)
-#             print("DB 접속 성공 >>>> ", self.conn)
-#         except:
-#             print("DBserver check...")
-
-#         self.cur = self.conn.cursor()
-#         print(f"self.cur : {self.cur}")
-
-#     # 조회
-#     def select(self, sql):
-#         self.start()
-#         rs_cnt = self.cur.execute(sql)
-
-#         if rs_cnt > 1:
-#             print(f'{rs_cnt}건 조회')
-#             read = self.cur.fetchall()
-#             df = pd.DataFrame(read)
-#             self.exit()
-#             return df
-#         elif rs_cnt == 1:
-#             print(f'{rs_cnt}건 조회')
-#             read = self.cur.fetchone()
-#             # print(read)
-#             df = pd.DataFrame([read])
-#             self.exit()
-#             return df
-#         else:
-#             print('조회될건이 없습니다.')
-#             self.exit()
-
-#     # 종료
-#     def exit(self):
-#         #접속종료
-#         try:
-#             print('접속해제')
-#             self.cur.close()
-#             self.conn.close()
-#         except:
-#             print("이미 꺼짐")
-#             self.cur.close()
-#             self.conn.close()
-
-#%%
 import pandas as pd
-from sqlalchemy import create_engine
 import pymysql
 import streamlit as st
-import matplotlib.pyplot as plt
 
 class teamTableSearchClass:
     def __init__(self):
@@ -121,15 +56,15 @@ class teamTableSearchClass:
             self.cur.close()
             self.conn.close()
 
-#%%
+
 ts = teamTableSearchClass()
 
-#%%
+
 ori_df = ts.select('''
         select * 
         from car_prop_elec_hydro
     ''')
-#%%
+
 elec_subside = ts.select('''
             select * 
             from elec_subside
@@ -138,15 +73,15 @@ hydro_subside = ts.select('''
             select * 
             from hydro_subside
             ''')
-#%%
+
 elec_reg = elec_subside['reg_div']
 hydro_reg = hydro_subside['reg_div']
 elec_reg_unique = elec_reg.str.strip().unique()
 hydro_reg_unique = hydro_reg.str.strip().unique()
 
-#%%
+
 ori_df
-#%%
+
 car_grade = ori_df['car_grade'].str.strip().unique()
 print(car_grade)
 car_type = ori_df['car_type'].str.strip().unique()
@@ -156,7 +91,7 @@ print(company)
 power = ori_df['power'].str.strip().unique()
 print(power)
 
-#%% md
+ md
 # # streamlit 영역입니다
 # 
 # 사용자에게 제공하는 서비스 구현
@@ -171,7 +106,7 @@ print(power)
 # 차종1 (suv , 세단)
 # 차종2 (소형 ,준중형 , 중형 , 준대형 ,대형)
 # 
-#%%
+
 st.subheader("당신이 찾는 친환경 차를 찾아드립니다!")
 
 po_input = st.selectbox('원하는 연료을 선택하세요', power, index=None)
@@ -216,12 +151,8 @@ else:
     WHERE reg_div="{reg_input}"
     ''')
 st.write(f'사용자입력값: {reg_input, ca_gr_input, ca_ty_input, car_input, po_input}')
-#%%
+
 st.subheader('조회 결과')
 st.write(df_car)
 st.write(df_sub)
-#%%
 
-#%%
-
-#%%
