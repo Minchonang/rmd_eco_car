@@ -1,3 +1,4 @@
+#%%
 import pandas as pd
 import pymysql
 import streamlit as st
@@ -91,21 +92,6 @@ print(company)
 power = ori_df['power'].str.strip().unique()
 print(power)
 
-# # streamlit 영역입니다
-# 
-# 사용자에게 제공하는 서비스 구현
-# 사용자가 입력하는 항목에 따라 적정한 차량 소개
-# 연비 , 지역에 따른 보조금  
-# 필요한 것 : 차량 별 가격 컬럼 , 해외 전기/수소차 데이터 추가
-# Streamlit 사용하여 사용자에게 입력 받아서 출력 가능
-# 주소(시군) -> 지역에 따른 보조금
-# 하루 평균 이동 거리 -> 연비
-# 차량 가격
-# 회사 별
-# 차종1 (suv , 세단)
-# 차종2 (소형 ,준중형 , 중형 , 준대형 ,대형)
-# 
-
 st.subheader("당신이 찾는 친환경 차를 찾아드립니다!")
 
 po_input = st.selectbox('원하는 연료을 선택하세요', power, index=None)
@@ -127,7 +113,6 @@ if po_input == '수소':
     FROM hydro_subside
     WHERE reg_div="{reg_input}"
     ''')
-# elif po_input == '전기':
 else:
     searchtable="elec_subside"
     reg_input = st.selectbox('지역을 선택하세요', elec_reg_unique, index=None)
@@ -154,4 +139,3 @@ st.write(f'사용자입력값: {reg_input, ca_gr_input, ca_ty_input, car_input, 
 st.subheader('조회 결과')
 st.write(df_car)
 st.write(df_sub)
-
