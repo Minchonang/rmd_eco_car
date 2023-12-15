@@ -1,27 +1,27 @@
-from sqlalchemy import create_engine
+# from sqlalchemy import create_engine
 
-st.sidebar.header('User Input Parameters')
+# st.sidebar.header('User Input Parameters')
 
-date = pd.datetime.today()
+# date = pd.datetime.today()
 
-server = st.sidebar.text_input('Server Name', '')
-data_mart = st.sidebar.text_input('Data Mart', '')
-password = st.sidebar.text_input('Password', '')
-schema = st.sidebar.text_input('Schema', '')
-st.sidebar.info('In our use case table can be: ')
-table_name = st.sidebar.text_input('Table Name', '')
-table = 'SELECT * FROM ' + table_name
-con = pymysql.connect(server, data_mart, password, schema)
-data = pd.read_sql(table, con)
-df = pd.DataFrame(data)
-df.to_csv(f'local\{table_name}.csv')
-data = pd.read_csv(f'local\{table_name}.csv')
-df = pd.DataFrame(data)
+# server = st.sidebar.text_input('Server Name', '')
+# data_mart = st.sidebar.text_input('Data Mart', '')
+# password = st.sidebar.text_input('Password', '')
+# schema = st.sidebar.text_input('Schema', '')
+# st.sidebar.info('In our use case table can be: ')
+# table_name = st.sidebar.text_input('Table Name', '')
+# table = 'SELECT * FROM ' + table_name
+# con = pymysql.connect(server, data_mart, password, schema)
+# data = pd.read_sql(table, con)
+# df = pd.DataFrame(data)
+# df.to_csv(f'local\{table_name}.csv')
+# data = pd.read_csv(f'local\{table_name}.csv')
+# df = pd.DataFrame(data)
 
-st.header('Streamlit DB connector')
-st.subheader(f'Data to be analyzed from {table_name} table in server {server}')
-st.markdown(df.columns)
-st.dataframe(df)
+# st.header('Streamlit DB connector')
+# st.subheader(f'Data to be analyzed from {table_name} table in server {server}')
+# st.markdown(df.columns)
+# st.dataframe(df)
 import pandas as pd
 import pymysql
 import streamlit as st
