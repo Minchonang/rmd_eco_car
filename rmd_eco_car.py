@@ -91,7 +91,6 @@ print(company)
 power = ori_df['power'].str.strip().unique()
 print(power)
 
- md
 # # streamlit 영역입니다
 # 
 # 사용자에게 제공하는 서비스 구현
