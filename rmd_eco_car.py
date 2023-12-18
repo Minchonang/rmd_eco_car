@@ -102,7 +102,16 @@ if po_input == '수소':
     ca_ty_input=None
     car_input=None
     df_car=ts.select(f'''
-        SELECT *
+        SELECT name as '이름',
+        company as '회사',
+        car_grade as '차급',
+        car_type as '차종',
+        fuel_effi as '연비',
+        car_price as '가격',
+        fuel_price_100km as '100km당연료비'
+        FROM car_prop_elec_hydro
+        WHERE POWER="{po_input}"
+        ORDER BY fuel_price_100km asc
         FROM car_prop_elec_hydro
         WHERE POWER="{po_input}"
         ORDER BY fuel_price_100km asc
@@ -123,7 +132,16 @@ else:
     car_input = st.selectbox('원하는 브랜드를 선택하세요', company, index=None)
 
     df_car=ts.select(f'''
-    SELECT *
+        SELECT name as '이름',
+        company as '회사',
+        car_grade as '차급',
+        car_type as '차종',
+        fuel_effi as '연비',
+        car_price as '가격',
+        fuel_price_100km as '100km당연료비'
+        FROM car_prop_elec_hydro
+        WHERE POWER="{po_input}"
+        ORDER BY fuel_price_100km asc
     FROM car_prop_elec_hydro
     WHERE POWER="{po_input}" AND car_grade="{ca_gr_input}" AND car_type="{ca_ty_input}" AND company="{car_input}"
     ORDER BY fuel_price_100km asc
