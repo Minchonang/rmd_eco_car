@@ -89,7 +89,19 @@ elec_reg_unique = elec_reg.str.strip().unique()
 hydro_reg_unique = hydro_reg.str.strip().unique()
 
 
-ori_df
+ori_df2 = ori_df.rename(
+    columns={
+        "company": "브랜드",
+        "car_grade": "차급",
+        "car_type": "차종",
+        "power": "동력",
+        "name": "이름",
+        "fuel_effi": "연비",
+        "car_price": "차량가격",
+        "fuel_price_100km": "100km연료비",
+    },
+)
+ori_df2
 
 car_grade = ori_df["car_grade"].str.strip().unique()
 print(car_grade)
@@ -112,7 +124,7 @@ if po_input == "수소":
     car_input = None
     df_car = ts.select(
         f"""
-        SELECT *
+        SELECT company as '브랜드' , name as '이름',car_grade as '차급', car_type as '차종', fuel_effi as '연비', car_price as '차량가격', fuel_price_100km as '100km연료비'
         FROM car_prop_elec_hydro
         WHERE POWER="{po_input}"
         ORDER BY fuel_price_100km asc
@@ -120,7 +132,7 @@ if po_input == "수소":
     )
     df_sub = ts.select(
         f"""
-    SELECT subside_2023
+    SELECT subside_2023 as '보조금'
     FROM hydro_subside
     WHERE reg_div="{reg_input}"
     """
@@ -137,7 +149,7 @@ else:
 
     df_car = ts.select(
         f"""
-    SELECT *
+    SELECT company as '브랜드' ,name as '이름', car_grade as '차급', car_type as '차종', fuel_effi as '연비', car_price as '차량가격', fuel_price_100km as '100km연료비'
     FROM car_prop_elec_hydro
     WHERE POWER="{po_input}" AND car_grade="{ca_gr_input}" AND car_type="{ca_ty_input}" AND company="{car_input}"
     ORDER BY fuel_price_100km asc
@@ -145,12 +157,12 @@ else:
     )
     df_sub = ts.select(
         f"""
-    SELECT subside_2023
+    SELECT subside_2023 as '보조금'
     FROM {searchtable}
     WHERE reg_div="{reg_input}"
     """
     )
-st.write(f"사용자입력값: {reg_input, ca_gr_input, ca_ty_input, car_input, po_input}")
+# st.write(f"사용자입력값: {reg_input, ca_gr_input, ca_ty_input, car_input, po_input}")
 
 st.subheader("조회 결과")
 st.write(df_car)
